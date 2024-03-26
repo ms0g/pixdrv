@@ -1,4 +1,4 @@
-# VGA Driver 
+# PIXDRV 
 ### Overview
 
 A custom VGA driver compatible with x86 kernels, along with a simple graphics library (SGL) designed to provide basic drawing capabilities on VGA-compatible displays. The driver interfaces directly with VGA hardware, providing low-level access to manipulate the display buffer and control the screen output. The graphics library built on top of the driver offers functions for drawing basic shapes and handling colors.
