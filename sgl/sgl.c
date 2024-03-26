@@ -170,7 +170,7 @@ void sglDrawFilledTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsig
 *  (x1,y1)------(x2,y2)
 *
 */
-static void sglFillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
+void sglFillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
     // Inverse slope because we're calculating the x changes with respect to y
     float invSlope1 = (float)(x1 - x0) / (y1 - y0);
     float invSlope2 = (float)(x2 - x0) / (y2 - y0);
@@ -201,7 +201,7 @@ static void sglFillFlatBottomTriangle(int x0, int y0, int x1, int y1, int x2, in
 *        (x2,y2)
 *
 */
-static void sglFillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
+void sglFillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
     float invSlope1 = (float)(x2 - x0) / (y2 - y0);
     float invSlope2 = (float)(x2 - x1) / (y2 - y1);
 
@@ -217,7 +217,7 @@ static void sglFillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y
     }
 }
 
-static void circle(int xc, int yc, int x, int y, unsigned short color) {
+void circle(int xc, int yc, int x, int y, unsigned short color) {
     sglDrawPixel(xc+x, yc+y, color); 
     sglDrawPixel(xc-x, yc+y, color); 
     sglDrawPixel(xc+x, yc-y, color); 
