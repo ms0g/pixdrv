@@ -44,4 +44,10 @@ void main() {
     sglSwapBuffers();
 }
 ```
+### License
 
+This project is licensed under the GPL-3.0 License. See the LICENSE file for details.
+
+### Credits
+
+Developed by M. Sami Gürpınar
