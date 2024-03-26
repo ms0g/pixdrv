@@ -4,19 +4,19 @@
 #include "regs.h"
 
 /************************************
- *	Register Values	for Mode 13h	*
+ *  Register Values	for Mode 13h	*
  ************************************/
 
 static const ExternalGeneral extRegs13 = {
-	.miscOutput = 0x63
+    .miscOutput = 0x63
 };
 
 static const Sequencer seqRegs13 = {
-	.reset = 0x03,
-	.clockingMode = 0x01,
-	.mapMask = 0x0F,
-	.charMapSelect = 0x00,
-	.seqMemoryMode = 0x0E
+    .reset = 0x03,
+    .clockingMode = 0x01,
+    .mapMask = 0x0F,
+    .charMapSelect = 0x00,
+    .seqMemoryMode = 0x0E
 };
 
 static CRTController crtcRegs13 = {
