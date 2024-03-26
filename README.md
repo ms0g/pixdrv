@@ -34,12 +34,12 @@ void main() {
     sglDrawFilledTriangle(100, 100, 50, 150, 120, 120, MAGENTA);
 
     sglDrawTriangle(200, 100, 150, 170, 250, 190, YELLOW);
-
+    
     for (int i = 0; i < 15; i++) {
-		for (int j = 0; j < 100; j++) {
-			sglDrawPixel(i, 50 + j, i);
-		}
-	}
+        for (int j = 0; j < 100; j++) {
+            sglDrawPixel(i, 50 + j, i);
+        }
+    }
 
     sglSwapBuffers();
 }
