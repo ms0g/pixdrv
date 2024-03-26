@@ -6,7 +6,7 @@ enum GfxMode {
 };
 
 enum COLORS {
-    BLACK,		    /* dark colors */
+    BLACK,          /* dark colors */
     BLUE,
     GREEN,
     CYAN,
@@ -14,7 +14,7 @@ enum COLORS {
     MAGENTA,
     BROWN,
     LIGHTGRAY,
-    DARKGRAY,		/* light colors */
+    DARKGRAY,       /* light colors */
     LIGHTBLUE,
     LIGHTGREEN,
     LIGHTCYAN,

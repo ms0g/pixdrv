@@ -4,7 +4,7 @@
 
 #define	VGA_AC_INDEX		0x3C0
 #define	VGA_AC_WRITE		0x3C0
-#define	VGA_AC_READ			0x3C1
+#define	VGA_AC_READ         0x3C1
 #define	VGA_STATUS_READ		0x3DA
 #define	VGA_MISC_WRITE		0x3C2
 #define	VGA_MISC_READ		0x3CC
@@ -23,7 +23,7 @@
 #define	VGA_NUM_SEQ_REGS	5
 
 /****************************
- *		VRAM Address		*
+ *      VRAM Address        *
  ****************************/
 
 static u8* VRAM = (u8 *) 0xA0000;
@@ -35,37 +35,38 @@ static u8* VRAM = (u8 *) 0xA0000;
  */
 static u8* offscreen = (u8 *) 0x00100;
 
-/**
- * Some globals 
- */
+/************************
+ *      Some globals    *
+ ************************/
 static unsigned int width;
 static unsigned int height;
 static unsigned int vram_size;
 
 /********************************
- *		Private Functions		*
+ *      Private Functions       *
  ********************************/
 
-static void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, const GraphicsController* gfxc, const AttributeController* attrc);
+static void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, 
+                    const GraphicsController* gfxc, const AttributeController* attrc);
 
 /********************************
- *		Public Driver API		*
+ *      Public Driver API       *
  ********************************/
  
 void vgaInitGfxMode(int mode) {
 	switch (mode) {
         case MODE13H:
-			width = 320;
-			height = 200;
-			vram_size = width * height;
+            width = 320;
+            height = 200;
+            vram_size = width * height;
             
 			initRegs(&extRegs13, &seqRegs13, &crtcRegs13, &gfxcRegs13, &attrcRegs13);
             break;
         default:
             break;
     }
-	for (int i = 0; i < vram_size; ++i) {
-		offscreen[i] = 0x00;
+    for (int i = 0; i < vram_size; ++i) {
+        offscreen[i] = 0x00;
     }
 }
 
@@ -75,22 +76,22 @@ void vgaPlotPixel(int x, int y, unsigned short color) {
 }
 
 void vgaPlotPixelf(int x, int y, unsigned short color) {
-	unsigned short offset = width * y + x;
-	offscreen[offset] = color;
+    unsigned short offset = width * y + x;
+    offscreen[offset] = color;
 }
 
 void vgaclrscreen() {
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
-			vgaPlotPixel(i, j, BLACK);
-		}
-	}
+    for (int i = 0; i < width; i++) {
+	    for (int j = 0; j < height; j++) {
+		    vgaPlotPixel(i, j, BLACK);
+	    }
+    }
 }
 
 void vgaclroffscreen() {
-	for (int i = 0; i < vram_size; ++i) {
-		offscreen[i] = 0x00;
-	}
+    for (int i = 0; i < vram_size; ++i) {
+	    offscreen[i] = 0x00;
+    }
 }
 
 void vgaWaitVRetrace() {
@@ -99,23 +100,24 @@ void vgaWaitVRetrace() {
 }
 
 void vgaSwapBuffers() {
-	vgaWaitVRetrace();
+    vgaWaitVRetrace();
 
     for (int i = 0; i < vram_size; ++i) {
         VRAM[i] = offscreen[i];
     }
 }
 
-void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, const GraphicsController* gfxc, const AttributeController* attrc) {
+void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, 
+            const GraphicsController* gfxc, const AttributeController* attrc) {
 	unsigned int i;
 	
 	// write MISCELLANEOUS reg
 	outb(VGA_MISC_WRITE, ext->miscOutput);
 	// write SEQUENCER regs
-	for (i = 0; i < VGA_NUM_SEQ_REGS; ++i) {
-		outb(VGA_SEQ_INDEX, i);
-		outb(VGA_SEQ_DATA, seq->m[i]);
-	}
+    for (i = 0; i < VGA_NUM_SEQ_REGS; ++i) {
+        outb(VGA_SEQ_INDEX, i);
+        outb(VGA_SEQ_DATA, seq->m[i]);
+    }
 		
 	// unlock CRTC registers
 	outb(VGA_CRTC_INDEX, 0x03);
@@ -126,22 +128,22 @@ void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* c
 	crtc->startHorizontalBlanking |= 0x80;
 	crtc->cursorStart &= ~0x80;
 	// write CRTC regs
-	for (i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
-		outb(VGA_CRTC_INDEX, i);
-		outb(VGA_CRTC_DATA, crtc->m[i]);
-	}
+    for (i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
+        outb(VGA_CRTC_INDEX, i);
+        outb(VGA_CRTC_DATA, crtc->m[i]);
+    }
 
 	// write GRAPHICS CONTROLLER regs
-	for (i = 0; i < VGA_NUM_GC_REGS; ++i) {
-		outb(VGA_GC_INDEX, i);
-		outb(VGA_GC_DATA, gfxc->m[i]);
-	}
+    for (i = 0; i < VGA_NUM_GC_REGS; ++i) {
+        outb(VGA_GC_INDEX, i);
+        outb(VGA_GC_DATA, gfxc->m[i]);
+    }
 
 	// write ATTRIBUTE CONTROLLER regs
-	for (int i = 0; i < VGA_NUM_AC_REGS; ++i) {
-		(void)insb(VGA_STATUS_READ);
-		outb(VGA_AC_INDEX, i);
-		outb(VGA_AC_WRITE, attrc->m[i]);
+    for (int i = 0; i < VGA_NUM_AC_REGS; ++i) {
+        (void)insb(VGA_STATUS_READ);
+        outb(VGA_AC_INDEX, i);
+        outb(VGA_AC_WRITE, attrc->m[i]);
 	}
 		
 	// lock 16-color palette and unblank display
