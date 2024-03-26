@@ -3,9 +3,9 @@
 
 #include "regs.h"
 
-/****************************************
- *		Register Values	for Mode 13h	*
- ****************************************/
+/************************************
+ *	Register Values	for Mode 13h	*
+ ************************************/
 
 static const ExternalGeneral extRegs13 = {
 	.miscOutput = 0x63
