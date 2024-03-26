@@ -9,7 +9,7 @@
 #define	VGA_MISC_WRITE      0x3C2
 #define	VGA_MISC_READ       0x3CC
 
-/*			COLOR emulation		MONO emulation */
+/*          COLOR emulation		MONO emulation */
 #define VGA_CRTC_INDEX      0x3D4		/* 0x3B4 */
 #define VGA_CRTC_DATA       0x3D5		/* 0x3B5 */
 #define VGA_GC_INDEX        0x3CE
@@ -54,7 +54,7 @@ static void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTContro
  ********************************/
  
 void vgaInitGfxMode(int mode) {
-	switch (mode) {
+    switch (mode) {
         case MODE13H:
             width = 320;
             height = 200;
@@ -82,15 +82,15 @@ void vgaPlotPixelf(int x, int y, unsigned short color) {
 
 void vgaclrscreen() {
     for (int i = 0; i < width; i++) {
-	    for (int j = 0; j < height; j++) {
-		    vgaPlotPixel(i, j, BLACK);
-	    }
+        for (int j = 0; j < height; j++) {
+            vgaPlotPixel(i, j, BLACK);
+        }
     }
 }
 
 void vgaclroffscreen() {
     for (int i = 0; i < vram_size; ++i) {
-	    offscreen[i] = 0x00;
+        offscreen[i] = 0x00;
     }
 }
 
@@ -109,44 +109,44 @@ void vgaSwapBuffers() {
 
 void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, 
             const GraphicsController* gfxc, const AttributeController* attrc) {
-	unsigned int i;
+    unsigned int i;
 	
-	// write MISCELLANEOUS reg
-	outb(VGA_MISC_WRITE, ext->miscOutput);
-	// write SEQUENCER regs
+    // write MISCELLANEOUS reg
+    outb(VGA_MISC_WRITE, ext->miscOutput);
+    // write SEQUENCER regs
     for (i = 0; i < VGA_NUM_SEQ_REGS; ++i) {
         outb(VGA_SEQ_INDEX, i);
         outb(VGA_SEQ_DATA, seq->m[i]);
     }
 		
-	// unlock CRTC registers
-	outb(VGA_CRTC_INDEX, 0x03);
-	outb(VGA_CRTC_DATA, insb(VGA_CRTC_DATA) | 0x80);
-	outb(VGA_CRTC_INDEX, 0x11);
-	outb(VGA_CRTC_DATA, insb(VGA_CRTC_DATA) & ~0x80);
-	// make sure they remain unlocked
-	crtc->startHorizontalBlanking |= 0x80;
-	crtc->cursorStart &= ~0x80;
-	// write CRTC regs
+    // unlock CRTC registers
+    outb(VGA_CRTC_INDEX, 0x03);
+    outb(VGA_CRTC_DATA, insb(VGA_CRTC_DATA) | 0x80);
+    outb(VGA_CRTC_INDEX, 0x11);
+    outb(VGA_CRTC_DATA, insb(VGA_CRTC_DATA) & ~0x80);
+    // make sure they remain unlocked
+    crtc->startHorizontalBlanking |= 0x80;
+    crtc->cursorStart &= ~0x80;
+    // write CRTC regs
     for (i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
         outb(VGA_CRTC_INDEX, i);
         outb(VGA_CRTC_DATA, crtc->m[i]);
     }
 
-	// write GRAPHICS CONTROLLER regs
+    // write GRAPHICS CONTROLLER regs
     for (i = 0; i < VGA_NUM_GC_REGS; ++i) {
         outb(VGA_GC_INDEX, i);
         outb(VGA_GC_DATA, gfxc->m[i]);
     }
 
-	// write ATTRIBUTE CONTROLLER regs
+    // write ATTRIBUTE CONTROLLER regs
     for (int i = 0; i < VGA_NUM_AC_REGS; ++i) {
         (void)insb(VGA_STATUS_READ);
         outb(VGA_AC_INDEX, i);
         outb(VGA_AC_WRITE, attrc->m[i]);
     }
 		
-	// lock 16-color palette and unblank display
-	(void)insb(VGA_STATUS_READ);
-	outb(VGA_AC_INDEX, 0x20);
+    // lock 16-color palette and unblank display
+    (void)insb(VGA_STATUS_READ);
+    outb(VGA_AC_INDEX, 0x20);
 }
