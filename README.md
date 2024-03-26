@@ -3,7 +3,7 @@
 
 This repository contains a custom VGA driver along with a simple graphics library (SGL) designed to provide basic drawing capabilities on VGA-compatible displays. The driver interfaces directly with VGA hardware, providing low-level access to manipulate the display buffer and control the screen output. The graphics library built on top of the driver offers functions for drawing basic shapes and handling colors.
 
-![vga](img/qemu.png)
+<img src="img/qemu.png" alt="image" width="700" height="auto">
 
 ### Features
 + Low-level VGA driver for interfacing with VGA-compatible displays.
