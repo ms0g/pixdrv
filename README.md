@@ -7,6 +7,7 @@ A custom VGA driver compatible with x86 kernels, along with a simple graphics li
 
 ### Features
 + Low-level VGA driver for interfacing with VGA-compatible displays.
++ Double buffering for reducing flickering and screen tearing.
 + Support for setting display modes, manipulating display buffer, and controlling screen output.
 + Simple graphics library built on top of the VGA driver.
 + Drawing functions for basic shapes (lines, rectangles, circles and triangles).
