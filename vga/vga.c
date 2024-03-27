@@ -125,8 +125,8 @@ void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* c
     outb(VGA_CRTC_INDEX, 0x11);
     outb(VGA_CRTC_DATA, insb(VGA_CRTC_DATA) & ~0x80);
     // make sure they remain unlocked
-    crtc->startHorizontalBlanking |= 0x80;
-    crtc->cursorStart &= ~0x80;
+    crtc->endHorizontalBlanking |= 0x80;
+    crtc->verticalRetraceEnd &= ~0x80;
     // write CRTC regs
     for (i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
         outb(VGA_CRTC_INDEX, i);
