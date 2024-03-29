@@ -3,9 +3,12 @@
 
 #include "regs.h"
 
-/****************************************
- *      Register Values for Mode 13h    *
- ***************************************/
+/**
+ * Register Values for Mode 13h
+ * 
+ * http://www.osdever.net/FreeVGA/vga/vga.htm
+ * https://files.osdev.org/mirrors/geezer/osd/graphics/modes.c
+ */
 
 static const ExternalGeneral extRegs13 = {
     .miscOutput = 0x63

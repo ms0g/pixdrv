@@ -30,6 +30,7 @@ static u8* VRAM = (u8 *) 0xA0000;
 
 /**
  * Backbuffer
+ *
  * Extended memory area 0x00100000 - 0x00EFFFFF
  * https://wiki.osdev.org/Memory_Map_(x86)
  */

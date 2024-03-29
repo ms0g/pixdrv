@@ -3,9 +3,13 @@
 
 typedef unsigned char u8;
 
-/****************************
- *      VGA Registers       *
- ****************************/
+/**
+ * VGA Registers
+ *
+ * https://wiki.osdev.org/VGA_Hardware   
+ * http://www.osdever.net/FreeVGA/vga/vga.htm
+ * https://fd.lod.bz/rbil/ports/video/index.html
+ */
 
 typedef struct ExternalGeneral {
     u8 miscOutput;
