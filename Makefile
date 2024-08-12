@@ -1,6 +1,6 @@
 OBJS = ./build/vga/vga.o \
 		./build/sgl/sgl.o \
-		./build/vga/io.asm.o
+		./build/vga/io.s.o
 
 INCLUDES = -I./vga -I./sgl
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops \
@@ -9,8 +9,8 @@ FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign
 
 all: ${OBJS}
 
-./build/vga/io.asm.o: ./vga/io.asm
-	nasm -f elf -g ./vga/io.asm  -o ./build/vga/io.asm.o
+./build/vga/io.s.o: ./vga/io.s
+	nasm -f elf -g ./vga/io.s  -o ./build/vga/io.s.o
 
 ./build/vga/vga.o: ./vga/vga.c
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./vga/vga.c -o ./build/vga/vga.o
