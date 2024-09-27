@@ -35,7 +35,7 @@ void sglClear() {
     vgaclroffscreen();
 }
 
-void sglDrawPixel(int x, int y, unsigned short color) {
+void sglPutPixel(int x, int y, unsigned short color) {
     vgaPlotPixelf(x, y, color);
 }
 
@@ -52,17 +52,17 @@ void sglDrawLine(int x0, int y0, int x1, int y1, unsigned short color) {
     float y = y0;
 
     for (int i = 0; i < step; ++i) {
-        sglDrawPixel(round(x), round(y), color);
+        sglPutPixel(round(x), round(y), color);
         
         x += xinc;
         y += yinc;
     }
 }
 
-void sglDrawRectangle(int x, int y, int width, int height, unsigned short color) {
+void sglDrawRect(int x, int y, int width, int height, unsigned short color) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            sglDrawPixel(x+i, y+j, color);
+            sglPutPixel(x+i, y+j, color);
         }
     }
 }
@@ -93,7 +93,7 @@ void sglDrawCircle(int xc, int yc, int r, unsigned short color) {
     }
 }
 
-void sglDrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
+void sglDrawTri(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
     sglDrawLine(x0, y0, x1, y1, color);
     sglDrawLine(x1, y1, x2, y2, color);
     sglDrawLine(x2, y2, x0, y0, color);
@@ -122,7 +122,7 @@ void sglDrawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned sh
 *                         (x2,y2)
 *
 */
-void sglDrawFilledTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
+void sglDrawFilledTri(int x0, int y0, int x1, int y1, int x2, int y2, unsigned short color) {
     if (y0 > y1) {
         swap(y0, y1);
         swap(x0, x1);
@@ -218,12 +218,12 @@ void sglFillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsi
 }
 
 void circle(int xc, int yc, int x, int y, unsigned short color) {
-    sglDrawPixel(xc+x, yc+y, color); 
-    sglDrawPixel(xc-x, yc+y, color); 
-    sglDrawPixel(xc+x, yc-y, color); 
-    sglDrawPixel(xc-x, yc-y, color); 
-    sglDrawPixel(xc+y, yc+x, color); 
-    sglDrawPixel(xc-y, yc+x, color); 
-    sglDrawPixel(xc+y, yc-x, color); 
-    sglDrawPixel(xc-y, yc-x, color); 
+    sglPutPixel(xc+x, yc+y, color); 
+    sglPutPixel(xc-x, yc+y, color); 
+    sglPutPixel(xc+x, yc-y, color); 
+    sglPutPixel(xc-x, yc-y, color); 
+    sglPutPixel(xc+y, yc+x, color); 
+    sglPutPixel(xc-y, yc+x, color); 
+    sglPutPixel(xc+y, yc-x, color); 
+    sglPutPixel(xc-y, yc-x, color); 
 }

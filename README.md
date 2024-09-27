@@ -26,19 +26,19 @@ void main() {
 
     sglClear();
 
-    sglDrawRectangle(150, 10, 100, 50, GREEN);
+    sglDrawRect(150, 10, 100, 50, GREEN);
 
     sglDrawLine(120, 14, 24, 30, RED);
 
     sglDrawCircle(100,100,50, CYAN);
 
-    sglDrawFilledTriangle(100, 100, 50, 150, 120, 120, MAGENTA);
+    sglDrawFilledTri(100, 100, 50, 150, 120, 120, MAGENTA);
 
-    sglDrawTriangle(200, 100, 150, 170, 250, 190, YELLOW);
+    sglDrawTri(200, 100, 150, 170, 250, 190, YELLOW);
     
     for (int i = 0; i < 15; i++) {
         for (int j = 0; j < 100; j++) {
-            sglDrawPixel(i, 50 + j, i);
+            sglPutPixel(i, 50 + j, i);
         }
     }
 
