@@ -1,11 +1,10 @@
 # PIXDRV 
-### Overview
 
 A custom VGA driver compatible with x86 kernels, along with a simple graphics library (SGL) designed to provide basic drawing capabilities on VGA-compatible displays. The driver interfaces directly with VGA hardware, providing low-level access to manipulate the display buffer and control the screen output. The graphics library built on top of the driver offers functions for drawing basic shapes and handling colors.
 
 <img src="img/qemu.png" alt="image" width="700" height="auto">
 
-### Features
+## Features
 + Low-level VGA driver for interfacing with VGA-compatible displays.
 + Double buffering for reducing flickering and screen tearing.
 + Support for setting display modes, manipulating display buffer, and controlling screen output.
@@ -13,7 +12,7 @@ A custom VGA driver compatible with x86 kernels, along with a simple graphics li
 + Drawing functions for basic shapes (lines, rectangles, circles and triangles).
 + Support for handling colors and basic color manipulation.
 
-### Prerequisites
+## Prerequisites
 - **Development Environment:** Set up a development environment with a compatible toolchain, such as NASM for assembly and GCC for C code.
 
 Example Usage:
@@ -45,10 +44,10 @@ void main() {
     sglSwapBuffers();
 }
 ```
-### License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-### Credits
+## Credits
 
 Developed by M. Sami Gürpınar
