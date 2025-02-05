@@ -3,7 +3,8 @@
 
 enum GfxMode {
     MODE13H,
-    MODE12H
+    MODE12H,
+    MODE03H
 };
 
 enum COLORS {

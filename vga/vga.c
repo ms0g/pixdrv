@@ -2,6 +2,7 @@
 #include "io.h"
 #include "mode13.h"
 #include "mode12.h"
+#include "mode03.h"
 
 #define	VGA_AC_INDEX        0x3C0
 #define	VGA_AC_WRITE        0x3C0
@@ -57,6 +58,17 @@ static void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTContro
  
 void xvInitGfxMode(int mode) {
     switch (mode) {
+        case MODE03H:
+            width = 80;
+            height = 25;
+            bytes = 2000;
+
+            initRegs(&extRegs03, 
+                    &seqRegs03, 
+                    &crtcRegs03, 
+                    &gfxcRegs03, 
+                    &attrcRegs03);
+            break;
         case MODE13H:
             width = 320;
             height = 200;
@@ -82,9 +94,8 @@ void xvInitGfxMode(int mode) {
         default:
             break;
     }
-    for (int i = 0; i < bytes; ++i) {
-        offscreen[i] = 0x00;
-    }
+
+    xvclroffscreen(0x00);
 }
 
 void xvPlotPixel(int x, int y, unsigned short color) {
@@ -126,12 +137,10 @@ void xvSwapBuffers() {
 
 void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* crtc, 
             const GraphicsController* gfxc, const AttributeController* attrc) {
-    unsigned int i;
-	
-    // write MISCELLANEOUS reg
+	// write MISCELLANEOUS reg
     outb(VGA_MISC_WRITE, ext->miscOutput);
     // write SEQUENCER regs
-    for (i = 0; i < VGA_NUM_SEQ_REGS; ++i) {
+    for (int i = 0; i < VGA_NUM_SEQ_REGS; ++i) {
         outb(VGA_SEQ_INDEX, i);
         outb(VGA_SEQ_DATA, seq->m[i]);
     }
@@ -145,13 +154,13 @@ void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTController* c
     crtc->endHorizontalBlanking |= 0x80;
     crtc->verticalRetraceEnd &= ~0x80;
     // write CRTC regs
-    for (i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
+    for (int i = 0; i < VGA_NUM_CRTC_REGS; ++i) {
         outb(VGA_CRTC_INDEX, i);
         outb(VGA_CRTC_DATA, crtc->m[i]);
     }
 
     // write GRAPHICS CONTROLLER regs
-    for (i = 0; i < VGA_NUM_GC_REGS; ++i) {
+    for (int i = 0; i < VGA_NUM_GC_REGS; ++i) {
         outb(VGA_GC_INDEX, i);
         outb(VGA_GC_DATA, gfxc->m[i]);
     }
