@@ -1,5 +1,5 @@
-#ifndef REGS_H
-#define REGS_H
+#ifndef REGISTER_H
+#define REGISTER_H
 
 typedef unsigned char u8;
 
@@ -19,6 +19,7 @@ typedef struct ExternalGeneral {
 } ExternalGeneral;
 
 typedef union Sequencer {
+    u8 m[5];
     struct {
         u8 reset;
         u8 clockingMode;
@@ -26,10 +27,10 @@ typedef union Sequencer {
         u8 charMapSelect;
         u8 seqMemoryMode;
     };
-    u8 m[5];
 } Sequencer;
 
 typedef union CRTController {
+    u8 m[25];
     struct {
         u8 horizontalTotal;
         u8 endHorizontalDisplay;
@@ -57,10 +58,10 @@ typedef union CRTController {
         u8 CRTCModeControl;
         u8 lineCompare;
     };
-    u8 m[25];
 } CRTController;
 
 typedef union GraphicsController {
+    u8 m[9];
     struct {
         u8 setReset;
         u8 enableSetReset;
@@ -71,11 +72,11 @@ typedef union GraphicsController {
         u8 miscGraphics;
         u8 colorDontCare;
         u8 bitMask;
-    };
-    u8 m[9];
+    }; 
 } GraphicsController;
 
 typedef union AttributeController {
+    u8 m[21];
     struct {
         u8 palette[16];
         u8 attrModeControl;
@@ -84,7 +85,6 @@ typedef union AttributeController {
         u8 horizontalPixelPanning;
         u8 colorSelect;
     };
-    u8 m[21];
 } AttributeController;
 
 #endif 

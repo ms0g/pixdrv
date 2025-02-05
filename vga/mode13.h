@@ -1,7 +1,7 @@
 #ifndef MODE13_H
 #define MODE13_H
 
-#include "regs.h"
+#include "register.h"
 
 /**
  * Register Values for Mode 13h
