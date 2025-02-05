@@ -1,6 +1,7 @@
 #include "vga.h"
 #include "io.h"
 #include "mode13.h"
+#include "mode12.h"
 
 #define	VGA_AC_INDEX        0x3C0
 #define	VGA_AC_WRITE        0x3C0
@@ -22,9 +23,9 @@
 #define	VGA_NUM_GC_REGS     9
 #define	VGA_NUM_SEQ_REGS    5
 
-/****************************
- *      VRAM Address        *
- ****************************/
+/********************************
+ *      VRAM Address            *
+ ********************************/
 
 static u8* VRAM = (u8 *) 0xA0000;
 
@@ -36,12 +37,12 @@ static u8* VRAM = (u8 *) 0xA0000;
  */
 static u8* offscreen = (u8 *) 0x00100;
 
-/************************
- *      Some globals    *
- ************************/
+/********************************
+ *      Some globals            *
+ ********************************/
 static unsigned int width;
 static unsigned int height;
-static unsigned int vram_size;
+static unsigned int bytes;
 
 /********************************
  *      Private Functions       *
@@ -59,14 +60,29 @@ void xvInitGfxMode(int mode) {
         case MODE13H:
             width = 320;
             height = 200;
-            vram_size = width * height;
+            bytes = 64000;
             
-            initRegs(&extRegs13, &seqRegs13, &crtcRegs13, &gfxcRegs13, &attrcRegs13);
+            initRegs(&extRegs13, 
+                    &seqRegs13, 
+                    &crtcRegs13, 
+                    &gfxcRegs13, 
+                    &attrcRegs13);
+            break;
+        case MODE12H:
+            width = 640;
+            height = 480;
+            bytes = 38400;
+            
+            initRegs(&extRegs12, 
+                    &seqRegs12, 
+                    &crtcRegs12, 
+                    &gfxcRegs12, 
+                    &attrcRegs12);
             break;
         default:
             break;
     }
-    for (int i = 0; i < vram_size; ++i) {
+    for (int i = 0; i < bytes; ++i) {
         offscreen[i] = 0x00;
     }
 }
@@ -90,7 +106,7 @@ void xvclrscreen(unsigned short color) {
 }
 
 void xvclroffscreen(unsigned short color) {
-    for (int i = 0; i < vram_size; ++i) {
+    for (int i = 0; i < bytes; ++i) {
         offscreen[i] = color;
     }
 }
@@ -103,7 +119,7 @@ void xvWaitVRetrace() {
 void xvSwapBuffers() {
     xvWaitVRetrace();
 
-    for (int i = 0; i < vram_size; ++i) {
+    for (int i = 0; i < bytes; ++i) {
         VRAM[i] = offscreen[i];
     }
 }

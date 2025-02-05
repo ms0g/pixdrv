@@ -2,7 +2,8 @@
 #define VGA_H
 
 enum GfxMode {
-    MODE13H
+    MODE13H,
+    MODE12H
 };
 
 enum COLORS {
