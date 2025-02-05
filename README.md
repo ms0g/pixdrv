@@ -10,7 +10,6 @@ A custom VGA driver compatible with x86 kernels, along with a simple graphics li
 + Support for setting display modes, manipulating display buffer, and controlling screen output.
 + Simple graphics library built on top of the VGA driver.
 + Drawing functions for basic shapes (lines, rectangles, circles and triangles).
-+ Support for handling colors and basic color manipulation.
 
 ## Prerequisites
 - **Development Environment:** Set up a development environment with a compatible toolchain, such as NASM for assembly and GCC for C code.
