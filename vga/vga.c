@@ -54,7 +54,7 @@ static void initRegs(const ExternalGeneral* ext, const Sequencer* seq, CRTContro
  *      Public Driver API       *
  ********************************/
  
-void vgaInitGfxMode(int mode) {
+void xvInitGfxMode(int mode) {
     switch (mode) {
         case MODE13H:
             width = 320;
@@ -71,37 +71,37 @@ void vgaInitGfxMode(int mode) {
     }
 }
 
-void vgaPlotPixel(int x, int y, unsigned short color) {
+void xvPlotPixel(int x, int y, unsigned short color) {
     unsigned short offset = width * y + x;
     VRAM[offset] = color;
 }
 
-void vgaPlotPixelf(int x, int y, unsigned short color) {
+void xvPlotPixelf(int x, int y, unsigned short color) {
     unsigned short offset = width * y + x;
     offscreen[offset] = color;
 }
 
-void vgaclrscreen() {
+void xvclrscreen(unsigned short color) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            vgaPlotPixel(i, j, BLACK);
+            xvPlotPixel(i, j, color);
         }
     }
 }
 
-void vgaclroffscreen() {
+void xvclroffscreen(unsigned short color) {
     for (int i = 0; i < vram_size; ++i) {
-        offscreen[i] = 0x00;
+        offscreen[i] = color;
     }
 }
 
-void vgaWaitVRetrace() {
+void xvWaitVRetrace() {
     while (insb(VGA_STATUS_READ) & 0x08);
     while (!(insb(VGA_STATUS_READ) & 0x08)); 
 }
 
-void vgaSwapBuffers() {
-    vgaWaitVRetrace();
+void xvSwapBuffers() {
+    xvWaitVRetrace();
 
     for (int i = 0; i < vram_size; ++i) {
         VRAM[i] = offscreen[i];

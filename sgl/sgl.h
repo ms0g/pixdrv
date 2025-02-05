@@ -3,7 +3,7 @@
 
 void sglSwapBuffers();
 
-void sglClear();
+void sglClear(unsigned short color);
 
 void sglPutPixel(int x, int y, unsigned short color);
 

@@ -24,18 +24,18 @@ enum COLORS {
     WHITE
 };
 
-void vgaInitGfxMode(int mode);
+void xvInitGfxMode(int mode);
 
-void vgaPlotPixel(int x, int y, unsigned short color);
+void xvPlotPixel(int x, int y, unsigned short color);
 
-void vgaPlotPixelf(int x, int y, unsigned short color);
+void xvPlotPixelf(int x, int y, unsigned short color);
 
-void vgaclrscreen();
+void xvclrscreen(unsigned short color);
 
-void vgaclroffscreen();
+void xvclroffscreen(unsigned short color);
 
-void vgaWaitVRetrace();
+void xvWaitVRetrace();
 
-void vgaSwapBuffers();
+void xvSwapBuffers();
 
 #endif

@@ -28,15 +28,15 @@ static void sglFillFlatTopTriangle(int x0, int y0, int x1, int y1, int x2, int y
  ********************************/
 
 void sglSwapBuffers() {
-    vgaSwapBuffers();
+    xvSwapBuffers();
 }
 
-void sglClear() {
-    vgaclroffscreen();
+void sglClear(unsigned short color) {
+    xvclroffscreen(color);
 }
 
 void sglPutPixel(int x, int y, unsigned short color) {
-    vgaPlotPixelf(x, y, color);
+    xvPlotPixelf(x, y, color);
 }
 
 void sglDrawLine(int x0, int y0, int x1, int y1, unsigned short color) {
